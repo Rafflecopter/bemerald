@@ -152,7 +152,7 @@ If `$mod` is included, it is appended to the block selector, like `.block__elem-
     font-weight: bold;                           
   }                                              
                                                  
-  @include Elem(dismiss-btn, $mod:on-left) {     //  .notification__dismiss-btn {
+  @include Elem(dismiss-btn, $mod:on-left) {     //  .notification__dismiss-btn--on-left {
     left: 0;                                     //    left: 0;
     right: auto;                                 //    right: auto;
   }                                              //  }

@@ -171,7 +171,7 @@ $bem--sep-mod-val: bem--defaulting(bem--sep-mod-val, "-");
     // Normal case, no psuedo-selector present or mod, so no nesting.
     // .myblock__myelem { ... }
     @at-root {
-      #{bem-selector($block, $e:($elem, $m))} {
+      #{bem-selector($block, $e:($elem, $mod))} {
         @content;
       }
     }
@@ -181,7 +181,7 @@ $bem--sep-mod-val: bem--defaulting(bem--sep-mod-val, "-");
     // .myblock--mymod .myblock__myelem { ... }
     @at-root {
       $selector: bem--extract-first-selector($this) + 
-                 " " + bem-selector($block, $e:($elem, $m));
+                 " " + bem-selector($block, $e:($elem, $mod));
       #{$selector} {
         @content;
       }

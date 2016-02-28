@@ -1,0 +1,15 @@
+{
+  "name": "bemerald",
+  "version": "0.0.1",
+  "description": "Pure-sass mixins & functions that make writing BEM a piece of cake ",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Juan Patten (jr@rafflecopter.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "sass-true": "^2.0.3"
+  }
+}

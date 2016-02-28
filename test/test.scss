@@ -1,0 +1,54 @@
+@import "true";
+@import "bemerald";
+
+@mixin eq($x,$y) { @include assert-equal($x,$y); }
+
+@include test-module("BEMerald") {
+
+  $B:  myblock;
+  $E:  myelem;
+  $M:  mymod;
+  $Mv: (mymodkey: mymodval);
+  $Ms: ($M, myothermod);
+
+
+  @include test("bem--mod-str") {
+    @include eq(bem--mod-str($M), "mymod");
+    @include eq(bem--mod-str($Mv), "mymodkey-mymodval");
+  }
+
+  @include test("bem--elem-str") {
+    @include eq(bem--elem-str($B, $E), "myblock__myelem");
+  }
+
+
+  @include test("[bem-selector] block only") {
+    @include eq(bem-selector($B),                    ".myblock");
+    @include eq(bem-selector($B, $e:false, $m:false), ".myblock");
+  }
+
+  @include test("[bem-selector] block + elem only") {
+    @include eq(bem-selector($B, $e:$E), ".myblock__myelem");
+  }
+
+  @include test("[bem-selector] block + elem + elem-mod") {
+    @include eq(bem-selector($B, $e:($E,$M)),  ".myblock__myelem--mymod");
+    @include eq(bem-selector($B, $e:($E,$Mv)), ".myblock__myelem--mymodkey-mymodval");
+  }
+
+  @include test("[bem-selector] block + mods only") {
+    @include eq(bem-selector($B, $m:$M),        ".myblock--mymod");
+    @include eq(bem-selector($B, $m:$Mv),       ".myblock--mymodkey-mymodval");
+    @include eq(bem-selector($B, $m:$Ms),       ".myblock--mymod, .myblock--myothermod");
+    @include eq(bem-selector($B, $m:($M, $Mv)), ".myblock--mymod, .myblock--mymodkey-mymodval");
+  }
+
+  @include test("[bem-selector] block + elem + mods") {
+    @include eq(bem-selector($B, $e:$E, $m:$M),  ".myblock--mymod .myblock__myelem");
+    @include eq(bem-selector($B, $e:$E, $m:$Mv), ".myblock--mymodkey-mymodval .myblock__myelem");
+    @include eq(bem-selector($B, $e:$E, $m:$Ms), ".myblock--mymod .myblock__myelem, .myblock--myothermod .myblock__myelem");
+  }
+
+
+}
+

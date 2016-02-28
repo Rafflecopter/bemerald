@@ -2,7 +2,7 @@
 
 # BEMerald
 
-Pure-sass functions and mixins to make writing BEM a piece of cake. Keeps things simple and handles tricky cases gracefully.
+Pure-sass functions and mixins to make writing [BEM](http://getbem.com/naming/) a piece of cake. Keeps things simple and handles tricky cases gracefully.
 <br><br>
 
 ## tl;dr

@@ -1,15 +1,10 @@
 
-@function bem--defaulting($name, $default) {
-  @return if(variable-exists($name), $name, $default);
-}
-
-
 //------------------------------------------------------------------------------
 // User-Overridable Configuration
 
-$bem--sep-elem:    bem--defaulting(bem--sep-elem, "__");
-$bem--sep-mod:     bem--defaulting(bem--sep-mod, "--");
-$bem--sep-mod-val: bem--defaulting(bem--sep-mod-val, "-");
+$bem--sep-elem:    if(variable-exists(bem--sep-elem),    $bem--sep-elem,    "__");
+$bem--sep-mod:     if(variable-exists(bem--sep-mod),     $bem--sep-mod,     "--");
+$bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-");
 
 
 

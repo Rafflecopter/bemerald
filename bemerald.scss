@@ -18,8 +18,12 @@ $bem--sep-mod-val: bem--defaulting(bem--sep-mod-val, "-");
 
 @function bem--selector-to-string($s) {
   $s: inspect($s); //cast to string
-  $s: str-slice($s, 2, -3); // remove parens & comma
-  @return $s;
+  
+  @if str-index($s, "(") { // ruby sass => "(selector,)"
+    @return str-slice($s, 2, -3);
+  } @else { // libsass => "selector"
+    @return str-slice($s, 1, -1);
+  }
 }
 
 @function bem--with-dot($x) {

@@ -58,7 +58,7 @@ $bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-")
   @return str-index($x, $bem--sep-mod);
 }
 
-@function bem--contains-psuedo($x) {
+@function bem--contains-pseudo($x) {
   @return str-index($x, ":");
 }
 
@@ -68,7 +68,7 @@ $bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-")
     @return str-slice($x, 1, str-index($x, $bem--sep-mod)-1);
   } @else if bem--contains-elem($x) {
     @return str-slice($x, 1, str-index($x, $bem--sep-elem)-1);
-  } @else if bem--contains-psuedo($x) {
+  } @else if bem--contains-pseudo($x) {
     @return str-slice($x, 1, str-index($x, ":")-1);
   }
   @return $x;
@@ -180,9 +180,9 @@ $bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-")
   $block: bem--extract-block($this);
   $first: bem--extract-first-selector($this);
 
-  @if not (bem--contains-psuedo($this) or
+  @if not (bem--contains-pseudo($this) or
            bem--contains-mod($this)) {
-    // Normal case, no psuedo-selector present or mod, so no nesting.
+    // Normal case, no pseudo-selector present or mod, so no nesting.
     // .myblock__myelem { ... }
     @at-root {
       #{bem-selector($block, $e:($elem, $mod))} {
@@ -190,7 +190,7 @@ $bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-")
       }
     }
   } @else {
-    // Psuedo-element or mod present, so we have nesting.
+    // pseudo-element or mod present, so we have nesting.
     // .myblock:active .myblock__myelem { ... }
     // .myblock--mymod .myblock__myelem { ... }
     @at-root {
@@ -218,8 +218,8 @@ $bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-")
     @error "Nesting a Modifier inside an Element (#{$this} #{$mod}) "+
            "is not supported. Instead, use bem-elem(myelem, elem-mod) syntax."; }
 
-  @if (bem--contains-psuedo($this)) {
-    @error "Nesting a Modifier inside a psuedo-selector is not supported: #{$this} #{$mod}"; }
+  @if (bem--contains-pseudo($this)) {
+    @error "Nesting a Modifier inside a pseudo-selector is not supported: #{$this} #{$mod}"; }
   
   @at-root {
     #{bem-selector($this, $m:$mod)} {

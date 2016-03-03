@@ -167,13 +167,13 @@ $bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-")
   $this: bem--selector-to-string(&);
 
   @if $this == "" {
-    @warn "Detected an Element that is not inside of a Block. Skipping: " + $elem;
+    @error "Detected an Element that is not inside a Block: #{$elem}";
   }
 
   @if bem--contains-elem($this) {
-    @warn "Detected a multi-level nested Element ("+$this+" "+$elem+")! Bemerald doesn't support nested "+
-          "elements because they do not have the BEM nature (http://getbem.com/faq/#css-nested-elements). "+
-          "If you must do it, use a hardcoded selector like &__subsubelem "
+    @error "Detected a multi-level nested Element (#{$this} #{$elem})! Bemerald doesn't support nested "+
+           "elements because they do not have BEM nature (http://getbem.com/faq/#css-nested-elements). "+
+           "If you must do it, use a hardcoded selector like &__subsubelem ";
   }
   
   $mod: $m or $mod;
@@ -208,14 +208,18 @@ $bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-")
   // This mixin does not generate element-modifiers. Use bem-elem(elem, $mod:mod).
   // Nesting bem-mod inside a pseudo-selector is not supported, because what
   // that should mean isn't clear.
+  $skip: false;
   $this: bem--selector-to-string(&);
 
+  @if $this == "" {
+    @error "Detected a Modifier that is not inside a Block: " + $mod; }
+
   @if (bem--contains-elem($this)) {
-    @error "Nesting a bem-mod inside a bem-elem is not supported. "+
-           "Instead, use bem-elem(myelem, elem-mod) syntax."; }
+    @error "Nesting a Modifier inside an Element (#{$this} #{$mod}) "+
+           "is not supported. Instead, use bem-elem(myelem, elem-mod) syntax."; }
 
   @if (bem--contains-psuedo($this)) {
-    @error "Nesting a bem-mod inside a psuedo-selector is not supported." }
+    @error "Nesting a Modifier inside a psuedo-selector is not supported: #{$this} #{$mod}"; }
   
   @at-root {
     #{bem-selector($this, $m:$mod)} {

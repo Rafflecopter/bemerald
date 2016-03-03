@@ -12,6 +12,10 @@ $bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-")
 // Private Helpers
 
 @function bem--selector-to-string($s) {
+  @if $s == null {
+    @return "";
+  }
+
   $s: inspect($s); //cast to string
   
   @if str-index($s, "(") { // ruby sass => "(selector,)"
@@ -161,6 +165,17 @@ $bem--sep-mod-val: if(variable-exists(bem--sep-mod-val), $bem--sep-mod-val, "-")
   // If $mod is included, it is appended to the block selector. Multiple
   // $mods are not supported.
   $this: bem--selector-to-string(&);
+
+  @if $this == "" {
+    @warn "Detected an Element that is not inside of a Block. Skipping: " + $elem;
+  }
+
+  @if bem--contains-elem($this) {
+    @warn "Detected a multi-level nested Element ("+$this+" "+$elem+")! Bemerald doesn't support nested "+
+          "elements because they do not have the BEM nature (http://getbem.com/faq/#css-nested-elements). "+
+          "If you must do it, use a hardcoded selector like &__subsubelem "
+  }
+  
   $mod: $m or $mod;
   $block: bem--extract-block($this);
   $first: bem--extract-first-selector($this);

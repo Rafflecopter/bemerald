@@ -1,6 +1,6 @@
 {
   "name": "bemerald",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Pure-sass mixins & functions that make writing BEM a piece of cake ",
   "main": "index.js",
   "scripts": {

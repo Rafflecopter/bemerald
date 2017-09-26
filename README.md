@@ -1,3 +1,7 @@
+<hr>
+# NOT MAINTAINED
+<hr>
+
 <img src="http://f.cl.ly/items/2Q1I3z1x3C3W1J2t0D1c/bemerald.svg" align=right height=200>
 
 # BEMerald
